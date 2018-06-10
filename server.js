@@ -2,7 +2,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 
-// var db = require("./models");
+var db = require("./models");
 
 var PORT = 3000;
 
