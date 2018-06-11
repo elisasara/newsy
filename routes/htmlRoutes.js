@@ -9,9 +9,12 @@ var db = require("../models");
 
 // // Use body-parser for handling form submissions
 // app.use(bodyParser.urlencoded({ extended: true }));
+
 module.exports = function (app) {
     app.get("/", function (req, res) {
-        db.Article.remove({});
+        db.Article.deleteMany({}, function(err){
+            if (err) return err;
+        });
         res.render("index");
     });
 
@@ -28,16 +31,24 @@ module.exports = function (app) {
                     db.Article.create({ "title": title, "link": link })
                         .then(function (dbArticle) {
                             // articleObj = dbArticle
+                            // writeResult({ "nInserted" : 1 })
                         });
                 });
             });
             db.Article.find({})
             .then(function(allArticles){
                 console.log(allArticles);
-                // res.render("articles", {articleObj});
                 res.render("articles", {articleObj: allArticles});
             })
     });
+
+    app.get("/articles/saved", function(req, res){
+
+    });
+
+    app.post("/articles/:id", function(req, res){
+
+    })
 
 
 };
