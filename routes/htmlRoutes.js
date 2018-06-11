@@ -11,11 +11,11 @@ var db = require("../models");
 // app.use(bodyParser.urlencoded({ extended: true }));
 module.exports = function (app) {
     app.get("/", function (req, res) {
+        db.Article.remove({});
         res.render("index");
     });
 
     app.get("/articles", function (req, res) {
-        var articleObj = {};
         axios.get("https://www.theatlantic.com/")
             .then(function (response) {
                 var $ = cheerio.load(response.data);
@@ -27,14 +27,16 @@ module.exports = function (app) {
 
                     db.Article.create({ "title": title, "link": link })
                         .then(function (dbArticle) {
-                            console.log(dbArticle);
-                            articleObj = {
-                                dbArticle: dbArticle
-                            }
+                            // articleObj = dbArticle
                         });
                 });
             });
-            res.render("articles", {articleObj});
+            db.Article.find({})
+            .then(function(allArticles){
+                console.log(allArticles);
+                // res.render("articles", {articleObj});
+                res.render("articles", {articleObj: allArticles});
+            })
     });
 
 
