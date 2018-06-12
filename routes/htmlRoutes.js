@@ -12,6 +12,7 @@ var db = require("../models");
 
 module.exports = function (app) {
     app.get("/", function (req, res) {
+        // update just for articles that do not have notes
         db.Article.deleteMany({}, function(err){
             if (err) return err;
         });
@@ -42,13 +43,32 @@ module.exports = function (app) {
             })
     });
 
-    app.get("/articles/saved", function(req, res){
+    app.get("/saved", function(req, res){
+        db.Article.find({saved: true})
+        .then(function(saved){
+            res.render("saved", {savedArticles: saved})
+        })
+    });
+
+    app.put("saved/:id", function(req, res){
+        db.Article.findByIdAndUpdate(req.params.id, {saved: true}, {new: true})
+        .then(function(saved){
+            res.redirect("/saved");
+            console.log("The article has been saved");
+        });
+    });
+
+    app.get("/saved/:id", function(req, res){
+        res.json();
+    })
+
+    app.post("/notes/:id", function(req, res){
 
     });
 
-    app.post("/articles/:id", function(req, res){
+    app.get("/notes/:id", function(req, res){
 
-    })
+    });
 
 
 };

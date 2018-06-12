@@ -1,20 +1,19 @@
-// // var axios = require("axios");
-// $(document).ready(function () {
-//     $("#scrape").on("click", function () {
-//         console.log("I've been clicked!");
-//         // $.ajax("https://www.theatlantic.com/")
-//         //     .then(function (response) {
-//         //         var $ = cheerio.load(response.data);
+$(document).ready(function(){
 
-//         //         $(".o-hed").each(function (i, element) {
-//         //             var result = {};
+$("#save").on("click", function(){
+    console.log("Save has been clicked");
+    var id = $(this).attr("data-id");
 
-//         //             result.title = $(this).children("a").text();
-//         //             result.link = $(this).children("a").attr("href");
+    $.ajax({
+        method: "PUT",
+        url: "/saved/" + id
+        // data: {
+        //     saved: true
+        // }
+    }).then(function(data){
+        console.log("This article has been saved");
+        // add modal in here
+    })
+});
 
-//         //             console.log(result);
-//         //         })
-//         //     })
-
-//     });
-// });
+});
