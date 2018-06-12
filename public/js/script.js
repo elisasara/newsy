@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
-    $(document).on("click", ".save", function () {
+    $(document).on("click", $(".save"), function () {
         console.log("Save has been clicked");
-        var id = $(this).attr("data-id");
+        var id = $(event.target).attr("data-id");
 
         $.ajax({
             method: "PUT",
