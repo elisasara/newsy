@@ -50,17 +50,17 @@ module.exports = function (app) {
         })
     });
 
-    app.put("saved/:id", function(req, res){
+    app.put("/saved/:id", function(req, res){
         db.Article.findByIdAndUpdate(req.params.id, {saved: true}, {new: true})
         .then(function(saved){
-            res.redirect("/saved");
+            // res.redirect("/saved");
             console.log("The article has been saved");
         });
     });
 
     app.get("/saved/:id", function(req, res){
-        res.json();
-    })
+        res.redirect("/saved");
+    });
 
     app.post("/notes/:id", function(req, res){
 
