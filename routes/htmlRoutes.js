@@ -46,6 +46,7 @@ module.exports = function (app) {
     app.get("/saved", function(req, res){
         db.Article.find({saved: true})
         .then(function(saved){
+            console.log(saved);
             res.render("saved", {savedArticles: saved})
         })
     });
