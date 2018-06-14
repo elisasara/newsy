@@ -59,9 +59,14 @@ module.exports = function (app) {
         });
     });
 
+    // I'M NOT SURE THIS IS WORKING OR NECESSARY
     app.get("/saved/:id", function(req, res){
         res.redirect("/saved");
     });
+
+    app.get("/notes", function(req, res){
+        res.render("notes");
+    })
 
     app.post("/notes/:id", function(req, res){
 
