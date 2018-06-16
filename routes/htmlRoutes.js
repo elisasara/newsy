@@ -64,16 +64,22 @@ module.exports = function (app) {
         res.redirect("/saved");
     });
 
-    app.get("/notes", function(req, res){
-        res.render("notes");
-    })
+    // app.get("/notes", function(req, res){
+    //     res.render("notes");
+    // })
 
     app.post("/notes/:id", function(req, res){
-
+        db.Note.create(req.body)
+        .then(function(note){
+            console.log("Note added");
+        });
     });
 
     app.get("/notes/:id", function(req, res){
-
+        db.Note.find({})
+        .then(function(data){
+            res.json(data);
+        });
     });
 
 

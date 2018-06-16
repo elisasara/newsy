@@ -22,13 +22,19 @@ $(document).ready(function () {
     $(".submitNote").on("click", function(event){
         event.preventDefault();
         var id = $(this).attr("data-id");
-        console.log("id:", id);
         var title = $("#title").val().trim();
-        console.log("title", title);
         var body = $("#note").val();
-        console.log("body", body);
 
-        // $.post("/notes/")
+        $.ajax({
+            method: "POST",
+            url: "/notes/" + id,
+            data: {
+                title: title,
+                body: body
+            }
+        }).then(function(data){
+            console.log(data);
+        })
     })
 
 });
