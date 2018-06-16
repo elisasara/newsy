@@ -7,19 +7,21 @@ var app = express();
 var db = require("../models");
 
 
-// // Use body-parser for handling form submissions
-// app.use(bodyParser.urlencoded({ extended: true }));
-
 module.exports = function (app) {
     app.get("/", function (req, res) {
         // update just for articles that do not have notes
         db.Article.deleteMany({}, function(err){
             if (err) return err;
         });
+        db.Note.deleteMany({}), function(err){
+            if (err) return err;
+        }
         res.render("index");
     });
 
     app.get("/articles", function (req, res) {
+
+        // move this into on click event so that it loads correctly??
         axios.get("https://www.theatlantic.com/")
             .then(function (response) {
                 var $ = cheerio.load(response.data);
@@ -63,10 +65,6 @@ module.exports = function (app) {
     app.get("/saved/:id", function(req, res){
         res.redirect("/saved");
     });
-
-    // app.get("/notes", function(req, res){
-    //     res.render("notes");
-    // })
 
     app.post("/notes/:id", function(req, res){
         db.Note.create(req.body)
