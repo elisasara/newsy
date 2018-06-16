@@ -7,13 +7,15 @@ $(document).ready(function () {
         $.ajax({
             method: "PUT",
             url: "/saved/" + id
-            // data: {
-            //     saved: true
-            // }
         }).then(function (data) {
             console.log("This article has been saved");
             // add modal in here
         })
+    });
+
+    $(document).on("click", $("#addNote"), function(event){
+        console.log("Add Note has been clicked!");
+        $("#addNote").css("visibility", "visible");
     });
 
 });

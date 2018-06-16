@@ -1,16 +1,53 @@
-<div class="container">
-    {{#each articleObj}}
+<div class="container" id="articleArea">
     <div class="row">
-        <div class="col-md-8">
-            <h2>{{this.title}}</h2>
-            <br />
-            <a href={{this.link}}>{{this.link}}</a>
+        <div class="col-md-7">
+            {{#each articleObj}}
+            <div class="row">
+                <div class="col-md-8">
+                    <h2>{{this.title}}</h2>
+                    <br />
+                    <a href={{this.link}}>{{this.link}}</a>
+                </div>
+                <div class="col-md-4">
+                    <a href="/notes/{{this._id}}">
+                        <div class="btn btn-primary addNote" data-id="{{this._id}}">Add Note</div>
+                    </a>
+                    <br />
+                    <div class="btn btn-success save" data-id="{{this._id}}">Save Article</div>
+                </div>
+            </div>
+            {{/each}}
         </div>
-        <div class="col-md-4">
-            <a href="/notes"><div class="btn btn-primary addNote" data-id="{{this._id}}">Add Note</div></a>
-            <br />
-            <div class="btn btn-success save" data-id="{{this._id}}">Save Article</div>
+        <div class="col-md-5" id="noteArea" data-id="{{this._id}}">
+            <form>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <br />
+                    <input type="text" id="title">
+                </div>
+                <div class="form-group">
+                    <label for="note">Note</label>
+                    <br />
+                    <textarea type="text" id="note"></textarea>
+                </div>
+                <button class="btn btn-success" type="submit" id="addNote">Add Note</button>
+            </form>
         </div>
     </div>
-    {{/each}}
 </div>
+
+{{!-- <div class="container">
+    <form>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <br />
+            <input type="text" id="title">
+        </div>
+        <div class="form-group">
+            <label for="note">Note</label>
+            <br />
+            <textarea type="text" id="note"></textarea>
+        </div>
+        <button class="btn btn-success" type="submit" id="addNote">Add Note</button>
+    </form>
+</div> --}}
