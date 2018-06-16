@@ -2,7 +2,7 @@
 <div class="container">
     {{#each savedArticles}}
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-4">
             <h2>{{this.title}}</h2>
             <br />
             <a href={{this.link}}>{{this.link}}</a>
@@ -11,6 +11,9 @@
             <div class="btn btn-primary" id="addNote" data-id="{{this._id}}">Add Note</div>
             <br />
             <div class="btn btn-success" id="delete" data-id="{{this._id}}">Delete</div>
+        </div>
+        <div class="col-md-4 showNote">
+             
         </div>
     </div>
     {{/each}}

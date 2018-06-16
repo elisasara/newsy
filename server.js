@@ -24,7 +24,7 @@ mongoose.connect("mongodb://localhost/newsyDb");
 
 // Routes
 require("./routes/htmlRoutes.js")(app);
-// require("./routes/apiRoutes.js")(app);
+require("./routes/apiRoutes.js")(app);
 
 // Start the server
 app.listen(PORT, function() {

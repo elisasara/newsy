@@ -5,3 +5,7 @@
 .noteArea {
     visibility: hidden
 }
+
+.showNote {
+    visibility: hidden
+}

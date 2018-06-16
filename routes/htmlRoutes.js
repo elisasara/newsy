@@ -10,10 +10,10 @@ var db = require("../models");
 module.exports = function (app) {
     app.get("/", function (req, res) {
         // update just for articles that do not have notes
-        db.Article.deleteMany({}, function(err){
+        db.Article.deleteMany({}, function (err) {
             if (err) return err;
         });
-        db.Note.deleteMany({}), function(err){
+        db.Note.deleteMany({}), function (err) {
             if (err) return err;
         }
         res.render("index");
@@ -38,46 +38,48 @@ module.exports = function (app) {
                         });
                 });
             });
-            db.Article.find({})
-            .then(function(allArticles){
+        db.Article.find({})
+            .then(function (allArticles) {
                 console.log(allArticles);
-                res.render("articles", {articleObj: allArticles});
+                res.render("articles", { articleObj: allArticles });
             })
     });
 
-    app.get("/saved", function(req, res){
-        db.Article.find({saved: true})
-        .then(function(saved){
-            console.log(saved);
-            res.render("saved", {savedArticles: saved})
-        })
+    app.get("/saved", function (req, res) {
+        db.Article.find({ saved: true }
+        ).populate("note")
+            .then(function (saved) {
+                console.log(saved);
+                res.render("saved", { savedArticles: saved })
+            })
     });
 
-    app.put("/saved/:id", function(req, res){
-        db.Article.findByIdAndUpdate(req.params.id, {saved: true}, {new: true})
-        .then(function(saved){
-            // res.redirect("/saved");
-            console.log("The article has been saved");
-        });
+    app.put("/saved/:id", function (req, res) {
+        db.Article.findByIdAndUpdate(req.params.id, { saved: true }, { new: true })
+            .then(function (saved) {
+                // res.redirect("/saved");
+                console.log("The article has been saved");
+            });
     });
 
     // I'M NOT SURE THIS IS WORKING OR NECESSARY
-    app.get("/saved/:id", function(req, res){
+    app.get("/saved/:id", function (req, res) {
         res.redirect("/saved");
     });
 
-    app.post("/notes/:id", function(req, res){
+    app.post("/notes/:id", function (req, res) {
         db.Note.create(req.body)
-        .then(function(note){
-            console.log("Note added");
-        });
+            .then(function (note) {
+                console.log("Note added");
+                return db.Article.findOneAndUpdate({}, { $push: { note: note._id } }, { new: true });
+            });
     });
 
-    app.get("/notes/:id", function(req, res){
+    app.get("/notes/:id", function (req, res) {
         db.Note.find({})
-        .then(function(data){
-            res.json(data);
-        });
+            .then(function (data) {
+                res.json(data);
+            });
     });
 
 
