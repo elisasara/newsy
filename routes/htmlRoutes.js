@@ -71,7 +71,7 @@ module.exports = function (app) {
         db.Note.create(req.body)
             .then(function (note) {
                 console.log("Note added");
-                return db.Article.findOneAndUpdate({id: req.params.id}, { $push: { note: note._id } }, { new: true });
+                return db.Article.findOneAndUpdate({ _id: req.params.id }, { $push: { note: note._id } }, { new: true });
             });
     });
 
