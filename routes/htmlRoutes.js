@@ -9,7 +9,7 @@ var db = require("../models");
 
 module.exports = function (app) {
     app.get("/", function (req, res) {
-        // update just for articles that do not have notes
+        // THIS CAUSES ISSUES WHEN YOU RUN THE SCRAP AGAIN. IS THERE A WAY TO FIX THIS??
         db.Article.deleteMany({}, function (err) {
             if (err) return err;
         });
@@ -21,7 +21,7 @@ module.exports = function (app) {
 
     app.get("/articles", function (req, res) {
 
-        // move this into on click event so that it loads correctly??
+        // UNSURE WHY THIS DOES NOT RUN THE FIRST TIME YOU GO TO THIS PAGE.
         axios.get("https://www.theatlantic.com/")
             .then(function (response) {
                 var $ = cheerio.load(response.data);
@@ -33,8 +33,6 @@ module.exports = function (app) {
 
                     db.Article.create({ "title": title, "link": link })
                         .then(function (dbArticle) {
-                            // articleObj = dbArticle
-                            // writeResult({ "nInserted" : 1 })
                         });
                 });
             });
@@ -42,7 +40,7 @@ module.exports = function (app) {
             .then(function (allArticles) {
                 console.log(allArticles);
                 res.render("articles", { articleObj: allArticles });
-            })
+            });
     });
 
     app.get("/saved", function (req, res) {

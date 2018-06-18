@@ -10,6 +10,7 @@ var db = require("../models");
 
 module.exports = function(app){
     
+    // THIS PROVES I REALLY DID GET MONGOOSE TO WORK EVEN IF IT IS NOT ALWAYS CLEAR SINCE MY APP IS POOP!
     app.get("/api/saved", function(req,res){
     db.Article.find({ saved: true }
     ).populate("note")

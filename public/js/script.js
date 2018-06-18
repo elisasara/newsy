@@ -18,19 +18,6 @@ $(document).ready(function(){
         var id = $(this).attr("data-id");
         $(".noteArea").css("visibility", "visible");
         $("#submitNote").attr({"data-id": id});
-    //     $("#noteForm").html("<form class='noteArea'>" +
-    //     "<div class='form-group'>" +
-    //         "<label for='title'>Title</label>" +
-    //         "<br />" +
-    //         "<input type='text' id='title'>" + 
-    //     "</div>" + 
-    //     "<div class='form-group'>" + 
-    //         "<label for='note'>Note</label>" + 
-    //         "<br />" + 
-    //         "<textarea type='text' id='note'></textarea>" + 
-    //     "</div>" + 
-    //     "<button class='btn btn-success' id='submitNote " + "data-id=" + id + "type='submit'>Add Note</button>" + 
-    // "</form>");
     });
 
     $("#submitNote").on("click", function(event){
