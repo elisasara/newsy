@@ -50,6 +50,7 @@ module.exports = function (app) {
         ).populate("note")
             .then(function (saved) {
                 console.log(saved);
+                console.log(saved[0].note[0].title);
                 res.render("saved", { savedArticles: saved })
             })
     });
