@@ -10,18 +10,16 @@ var db = require("../models");
 module.exports = function (app) {
     app.get("/", function (req, res) {
         // THIS CAUSES ISSUES WHEN YOU RUN THE SCRAP AGAIN. IS THERE A WAY TO FIX THIS??
-        db.Article.deleteMany({}, function (err) {
-            if (err) return err;
-        });
-        db.Note.deleteMany({}), function (err) {
-            if (err) return err;
-        }
+        // db.Article.deleteMany({}, function (err) {
+        //     if (err) return err;
+        // });
+        // db.Note.deleteMany({}), function (err) {
+        //     if (err) return err;
+        // }
         res.render("index");
     });
 
     app.get("/articles", function (req, res) {
-
-        // UNSURE WHY THIS DOES NOT RUN THE FIRST TIME YOU GO TO THIS PAGE.
         axios.get("https://www.theatlantic.com/")
             .then(function (response) {
                 var $ = cheerio.load(response.data);
@@ -31,7 +29,7 @@ module.exports = function (app) {
                     var title = $(element).text();
                     var link = $(element).children("a").attr("href");
 
-                    db.Article.create({ "title": title, "link": link })
+                    db.Article.findOneAndUpdate({"title": title}, { "title": title, "link": link }, {upsert: true}  )
                         .then(function (dbArticle) {
                         });
                 });
