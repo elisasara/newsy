@@ -20,6 +20,7 @@ module.exports = function (app) {
     });
 
     app.get("/articles", function (req, res) {
+        // WHY DOESN'T THIS WORK THE FIRST TIME YOU GO TO THE PAGE?? IT REQUIRES A REFRESH...
         axios.get("https://www.theatlantic.com/")
             .then(function (response) {
                 var $ = cheerio.load(response.data);
@@ -34,7 +35,7 @@ module.exports = function (app) {
                         });
                 });
             });
-        db.Article.find({})
+        db.Article.find({}).sort()
             .then(function (allArticles) {
                 console.log(allArticles);
                 res.render("articles", { articleObj: allArticles });
